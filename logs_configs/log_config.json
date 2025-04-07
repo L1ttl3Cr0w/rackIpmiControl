@@ -1,0 +1,88 @@
+{
+    "version": 1,
+    "disable_existing_loggers": "False",
+    "formatters": {
+        "json": {
+            "format": "%(asctime)s %(name)s %(lineno)d %(funcName)s %(levelname)s %(message)s",
+            "class": "pythonjsonlogger.jsonlogger.JsonFormatter"
+        }
+    },
+    "filters": {
+        "Debug": {
+            "()": "components.loggingFilter.FilterDebug"
+        },
+        "Info": {
+            "()": "components.loggingFilter.FilterInfo"
+        },
+        "Warning": {
+            "()": "components.loggingFilter.FilterWarning"
+        },
+        "Error": {
+            "()": "components.loggingFilter.FilterError"
+        },
+        "Critical": {
+            "()": "components.loggingFilter.FilterCritical"
+        }
+    },
+    "handlers": {
+        "stdout": {
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stdout",
+            "formatter": "json"
+        },
+        "debug_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "logs/debug.log",
+            "formatter": "json",
+            "filters": ["Debug"],
+            "maxBytes": 5242880,
+            "backupCount": 3
+        },
+        "info_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "/root/fancontrol/PythonControl/logs/info.log",
+            "formatter": "json",
+            "filters": ["Info"],
+            "maxBytes": 10485760,
+            "backupCount": 3
+        },
+        "warning_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "logs/warning.log",
+            "formatter": "json",
+            "filters": ["Warning"],
+            "maxBytes": 20971520,
+            "backupCount": 3
+        },
+        "error_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "logs/error.log",
+            "formatter": "json",
+            "filters": ["Error"],
+            "maxBytes": 31457280,
+            "backupCount": 5
+        },
+        "critical_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "logs/critical.log",
+            "formatter": "json",
+            "filters": ["Critical"],
+            "maxBytes": 52428800,
+            "backupCount": 5
+        }
+    },
+    "loggers": {
+        "__main__": {
+            "handlers": ["debug_file", "info_file"],
+            "level": "DEBUG"
+        },
+        "components.tempStateSwitch": {
+            "handlers": ["debug_file", "info_file", "warning_file", "error_file", "critical_file"],
+            "level": "INFO"
+        },
+        "components.callTemperature": {
+            "handlers": ["debug_file", "info_file", "warning_file", "error_file", "critical_file"],
+            "level": "INFO"
+        }
+    }
+}

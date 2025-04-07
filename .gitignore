@@ -1,0 +1,5 @@
+
+.env
+/components/__pycache__
+/pythonjsonlogger
+*.log
