@@ -73,7 +73,7 @@
     },
     "loggers": {
         "__main__": {
-            "handlers": ["debug_file", "info_file"],
+            "handlers": ["debug_file", "info_file", "critical_file"],
             "level": "DEBUG"
         },
         "components.tempStateSwitch": {
