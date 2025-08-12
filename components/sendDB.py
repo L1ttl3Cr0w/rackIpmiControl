@@ -8,7 +8,7 @@ load_dotenv()
 client = MongoClient(os.getenv("server"))
 # the database that you will be accessing
 db = client[os.getenv("database")]
-# 
+# collection that the data will be going to
 collection = db[os.getenv("collection")]
 class db_template:
     def __init__(self, name, level, message):
@@ -34,4 +34,4 @@ class db_template:
         else:
             log_data(__name__, "info", "Logging data into mongodb was successfull")
 def uploadData (level, message, name):
-    db_template(1, level, message, name).update_logs()
+    db_template(level, message, name).update_logs()
