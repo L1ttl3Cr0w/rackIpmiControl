@@ -38,8 +38,10 @@ class temp_state:
             return None
 class combined_temp_state:
     def __init__(self, cpu, gpu, high_threshold, low_threshold, status, high_status):
-        if sum(gpu) == 0:
+        if gpu == 0:
             self.sum = sum(cpu) / len(cpu)
+        elif type(gpu) != list:
+            self.sum = gpu + sum(cpu) / (len(cpu) + 1)
         elif cpu == None:
             self.sum = sum(gpu) / len(gpu)
         else:

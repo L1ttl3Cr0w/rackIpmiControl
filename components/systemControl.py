@@ -2,11 +2,11 @@ import os
 import subprocess
 from components.tempStateSwitch import temp_state, combined_temp_state
 from components.logDataFormat import logging_data
-def system_high_state(state, high_status, mongoDB):
+def system_high_state(status, high_status, mongoDB):
     try:
         if high_status == False:
-            if state != None:
-                for value in state:
+            if status != None:
+                for value in status:
                     if value:
                         # This ipmi code here sets the fans into automatic mode
                         subprocess.run(['ipmitool', 'raw', '0x30', '0x30', '0x01', '0x01'])
