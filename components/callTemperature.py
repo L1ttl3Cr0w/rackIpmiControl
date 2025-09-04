@@ -21,7 +21,7 @@ def call_cpu_temp(mongoDB, debug):
 def call_gpu_temp(gpu_installed, mongoDB, debug):
     try:
         if debug:
-            gpu_call = 75
+            gpu_call = 35
         else:
             gpu_call = subprocess.check_output(["nvidia-smi", "--query-gpu=temperature.gpu", "--format=csv,noheader"], encoding="utf-8").splitlines()
             if type(gpu_call) == list:
