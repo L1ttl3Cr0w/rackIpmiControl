@@ -8,7 +8,7 @@ signal_handler = SignalHandler()
 fan_speed=15
 # Starting default values of states
 gpu_installed = True
-mongoDB = False
+mongoDB = True
 debug = True
 class system_status_table:
     def __init__(self):
@@ -23,6 +23,7 @@ class system_status_table:
             self.combined_status = list[2]
 if __name__ == '__main__':
     systemStatus = system_status_table()
+    sysCon.on_start(fan_speed)
     while signal_handler.can_run():
         time.sleep(2)
         status = sysCon.check_system_state(callTemp.call_cpu_temp(mongoDB, debug), callTemp.call_gpu_temp(gpu_installed, mongoDB, debug), systemStatus.cpu_status, systemStatus.gpu_status, systemStatus.combined_status, systemStatus.high_status, mongoDB)
@@ -34,4 +35,5 @@ if __name__ == '__main__':
                 systemStatus.high_status = sysCon.system_low_state(systemStatus.high_status, fan_speed, mongoDB)
         else:
             logging_data(__name__, 'critical', 'Program failure, one or more components failed in retrieving data, please manually check the system for status', mongoDB)
+            signal_handler.request_shutdown()
         time.sleep(2)

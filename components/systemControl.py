@@ -2,6 +2,9 @@ import os
 import subprocess
 from components.tempStateSwitch import temp_state, combined_temp_state
 from components.logDataFormat import logging_data
+def on_start(fan_speed):
+    subprocess.run(['ipmitool', 'raw', '0x30', '0x30', '0x01', '0x00'])
+    subprocess.run(['ipmitool', 'raw', '0x30', '0x30', '0x02', '0xff', hex(fan_speed)])
 def system_high_state(status, high_status, mongoDB):
     try:
         if high_status == False:
